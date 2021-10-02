@@ -22,6 +22,7 @@ export const createNodeAndRelationNodes = async (payload:any): Promise<any> => {
             //MATCH (a:Sylvain), (b:Neungruetai) CREATE (a)-[r:TEST]->(b)
                 await session.run(`MERGE (a:${payload[key]}) RETURN a`);
                 await session.run(`MATCH (a:${parentNodeType}), (b:${payload[key]}) MERGE (a)-[r:Criteria]->(b)`);
+                await session.run(`MATCH (a:${parentNodeType}), (b:${payload[key]}) MERGE (b)-[r:Criteria]->(a)`);
             }
         }
         await session.close();
